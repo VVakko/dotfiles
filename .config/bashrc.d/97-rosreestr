@@ -1,0 +1,10 @@
+#----------------------------------------------------------------------------
+# ~/.config/bashrc.d/97-rosreestr: executed by .bash_profile for other settings
+# $Revision: 1.00 $
+# $Comment: Any comments please send to wakko@acmelabs.spb.ru $
+#----------------------------------------------------------------------------
+
+rr_cadastral_id () { 
+    curl -k -H "User-Agent: Mozilla/5.0" \
+        "https://rosreestr.gov.ru/fir_lite_rest/api/gkn/fir_lite_object/$@" | jq .
+}

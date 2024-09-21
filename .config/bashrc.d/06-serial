@@ -1,0 +1,50 @@
+#----------------------------------------------------------------------------
+# ~/.config/bashrc.d/06-serial: executed by .bash_profile for serial console
+# $Revision: 1.10 (CentOS/Ubuntu Edition by Wakko Warner) $
+# $Comment: Any comments please send to wakko@acmelabs.spb.ru $
+#----------------------------------------------------------------------------
+
+res() {
+    old=$(stty -g)
+    stty raw -echo min 0 time 5
+
+    printf '\0337\033[r\033[999;999H\033[6n\0338' > /dev/tty
+    IFS='[;R' read -r _ rows cols _ < /dev/tty
+
+    stty "$old"
+
+    # echo "cols:$cols"
+    # echo "rows:$rows"
+    stty cols "$cols" rows "$rows"
+}
+
+res2() {
+    old=$(stty -g)
+    stty raw -echo min 0 time 5
+
+    printf '\033[18t' > /dev/tty
+    IFS=';t' read -r _ rows cols _ < /dev/tty
+
+    stty "$old"
+
+    # echo "cols:$cols"
+    # echo "rows:$rows"
+    stty cols "$cols" rows "$rows"
+}
+
+TTY=$(tty)
+TMP=${TTY:5}
+
+if [[ "$TMP" == "ttyS"* ]]; then
+    eval "$(TERM=linux dircolors -b)"
+    unalias mc >/dev/null
+    unalias mcdiff >/dev/null
+    unalias mcedit >/dev/null
+    unalias mcview >/dev/null
+    alias mc='TERM=xterm mc --color -S default'
+    alias mcdiff='TERM=xterm mcdiff --color -S default'
+    alias mcedit='TERM=xterm mcedit --color -S default'
+    alias mcview='TERM=xterm mcview --color -S default'
+
+    res
+fi

@@ -1,0 +1,12 @@
+#----------------------------------------------------------------------------
+# ~/.config/bashrc.d/90-entware: executed by .bash_profile for entware
+# $Revision: 1.25 (Synology Edition by Wakko Warner) $
+# $Comment: Any comments please send to wakko@acmelabs.spb.ru $
+#----------------------------------------------------------------------------
+
+# PATH environment variable for use with entware
+[ -d /opt/sbin ] && export PATH="/opt/sbin:$PATH"
+[ -d /opt/bin ] && export PATH="/opt/bin:$PATH"
+
+# TERMINFO environment variable
+[ -d /opt/share/terminfo ] && export TERMINFO="/opt/share/terminfo"

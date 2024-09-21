@@ -1,0 +1,82 @@
+#----------------------------------------------------------------------------
+# ~/.config/bashrc.d/00-aliases: executed by .bash_profile for aliases
+# $Revision: 2.31 (CentOS/macOS/Ubuntu Edition by Wakko Warner) $
+# $Comment: Any comments please send to wakko@acmelabs.spb.ru $
+#----------------------------------------------------------------------------
+
+# Alias definitions.
+alias cp='cp -i'
+alias df='df -Ph'
+alias du='du -h'
+alias less='less -r'
+alias ll='ls -lp'
+alias mc='mc -x -S xoria256'
+alias mcdiff='mcdiff -x -S xoria256'
+alias mcedit='mcedit -x -S xoria256'
+alias mcview='mcview -x -S xoria256'
+alias md='mkdir'
+alias mtr='mtr -o "LRSD NBAWV"'
+alias mv='mv -i'
+alias nano='nano -mw'
+alias pman='pinfo -m'
+alias px='ps xa'
+alias rd='rmdir'
+alias rm='rm -i'
+alias scp='scp -p -r'
+alias screen='[ -z "$HUSHLOGIN" ] && TERM=xterm-256color screen -D -RR || TERM=linux screen -D -RR'
+alias ssh-suppress='ssh -o UserKnownHostsFile=/dev/null -o StrictHostKeyChecking=no'
+alias su='su -'
+alias sudo='sudo -s '
+alias showextip='curl http://ipecho.net/plain; echo'
+alias watch='watch '
+alias who='who -HuT'
+#[[ -f ~/.ssh/config2 ]] && alias ssh='ssh -F ~/.ssh/config2'
+#[[ $(wget --help) == *hsts* ]] && alias wget='wget --no-hsts'
+
+flushdns () {
+    if [ "$OSTYPE" == "linux-gnu" ]; then
+	if hash systemd-resolve 2>/dev/null; then
+    	    sudo systemd-resolve --flush-caches;
+	else
+	    sudo rndc flush;
+	fi
+    else
+	sudo dscacheutil -flushcache;
+	sudo killall -HUP mDNSResponder;
+	say "cache flushed";
+    fi
+}
+
+imap-decode () {
+    echo $@ | tr "&amp;" "+" | tr "," "/" | iconv -f UTF-7 -t UTF-8
+}
+
+tail () {
+    if hash ccze 2>/dev/null; then
+	/usr/bin/tail "$@" | ccze -A -o lookups=no;
+    else
+	/usr/bin/tail "$@";
+    fi
+}
+
+telnet () { 
+    if hash gtelnet 2>/dev/null; then
+        /opt/local/bin/gtelnet "$@";
+    else
+        /usr/bin/telnet "$@";
+    fi
+}
+
+wget () {
+    if [ "$OSTYPE" == "linux-gnu" ]; then
+        WGET=/usr/bin/wget
+    else
+        WGET=/opt/local/bin/wget
+    fi
+    $WGET --help | grep -q "no-hsts" &>/dev/null
+    if [ $? == 0 ]; then
+        $WGET --no-hsts "$@";
+    else
+        echo $WGET "$@";
+    fi
+}

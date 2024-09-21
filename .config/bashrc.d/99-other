@@ -1,0 +1,31 @@
+#----------------------------------------------------------------------------
+# ~/.config/bashrc.d/99-other: executed by .bash_profile for other settings
+# $Revision: 2.21 (CentOS/macOS/Ubuntu Edition by Wakko Warner) $
+# $Comment: Any comments please send to wakko@acmelabs.spb.ru $
+#----------------------------------------------------------------------------
+
+# Don't put duplicate and garbage lines from Midnight Commander to the history.
+export HISTCONTROL="ignoreboth"
+
+# append to the history file, don't overwrite it
+shopt -s histappend
+
+# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
+HISTSIZE=1000
+HISTFILESIZE=2000
+
+# set XAUTHORITY for sudo x-programs
+if hash xauth 2>/dev/null; then
+    export XAUTHORITY=$(xauth info 2>/dev/null | grep Authority | sed -e 's/^.* \//\//g')
+fi
+
+# check the window size after each command and, if necessary,
+# update the values of LINES and COLUMNS.
+shopt -s checkwinsize
+
+# if set, the pattern "**" used in a pathname expansion context will
+# match all files and zero or more directories and subdirectories.
+#shopt -s globstar
+
+# make less more friendly for non-text input files, see lesspipe(1)
+[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"

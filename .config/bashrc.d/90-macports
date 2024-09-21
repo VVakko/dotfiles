@@ -1,0 +1,20 @@
+#----------------------------------------------------------------------------
+# ~/.config/bashrc.d/90-macports: executed by .bash_profile for MacPorts settings
+# $Revision: 1.21 (macOS Edition by Wakko Warner) $
+# $Comment: Any comments please send to wakko@acmelabs.spb.ru $
+#----------------------------------------------------------------------------
+
+# PATH environment variable for use with MacPorts
+[ -d /opt/local/sbin ] && export PATH="/opt/local/sbin:$PATH"
+[ -d /opt/local/bin ] && export PATH="/opt/local/bin:$PATH"
+export CLICOLOR=1
+
+# Bash completion for use with MacPorts
+if [ -f /opt/local/etc/profile.d/bash_completion.sh ]; then
+	. /opt/local/etc/profile.d/bash_completion.sh
+fi
+
+# Fixing SHELL variable to MacPorts Bash instead of default zsh
+if [[ "${TERM_PROGRAM}" == "Apple_Terminal" ]]; then
+	export SHELL="/opt/local/bin/bash"
+fi

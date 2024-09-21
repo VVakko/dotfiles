@@ -1,0 +1,25 @@
+#----------------------------------------------------------------------------
+# ~/.config/bashrc.d/03-userfiles: executed by .bash_profile for user files
+# $Revision: 2.32 (CentOS/macOS/Ubuntu Edition by Wakko Warner) $
+# $Comment: Any comments please send to wakko@acmelabs.spb.ru $
+#----------------------------------------------------------------------------
+
+# User specific environment and startup programs
+if [ -d $HOME/.local/bin ]; then
+	PATH=$PATH:$HOME/.local/bin
+	export PATH
+fi
+# do the same with MANPATH
+if [ -d $HOME/.local/share/man ]; then
+	MANPATH=${MANPATH:-:}:$HOME/.local/share/man
+	export MANPATH
+fi
+
+XDG_CONFIG_HOME=$HOME/.config
+XDG_CACHE_HOME=$HOME/.local/share
+XDG_DATA_HOME=$HOME/.local/share
+export XDG_CONFIG_HOME
+export XDG_CACHE_HOME
+export XDG_DATA_HOME
+
+alias dotfiles="/usr/bin/git --git-dir=$HOME/.config/.dotfiles/ --work-tree=$HOME"

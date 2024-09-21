@@ -1,0 +1,9 @@
+#----------------------------------------------------------------------------
+# ~/.config/bashrc.d/98-synology: executed by .bash_profile for other settings
+# $Revision: 1.00 (Synology Edition by Wakko Warner) $
+# $Comment: Any comments please send to wakko@acmelabs.spb.ru $
+#----------------------------------------------------------------------------
+
+[[ ! -d /usr/syno ]] && return
+
+export SHELL=/bin/bash

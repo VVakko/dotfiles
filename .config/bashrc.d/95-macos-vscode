@@ -1,0 +1,12 @@
+#----------------------------------------------------------------------------
+# ~/.config/bashrc.d/95-macos-vscode: executed by .bash_profile
+# $Revision: 1.00 (macOS Edition by Wakko Warner) $
+# $Comment: Any comments please send to wakko@acmelabs.spb.ru $
+#----------------------------------------------------------------------------
+
+# Add Visual Studio Code (code)
+VSCODE_DIR="/Applications/Visual Studio Code.app/Contents/Resources/app/bin"
+if [[ -d "${VSCODE_DIR}" ]]; then
+    export PATH=$PATH:"${VSCODE_DIR}"
+    alias dotfiles-code="GIT_DIR=$HOME/.config/.dotfiles/ GIT_WORK_TREE=$HOME code"
+fi
